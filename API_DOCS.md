@@ -35,7 +35,7 @@ curl -X POST http://localhost:3000/api/auth/google \
 ```
 
 ### Logout
-Invalidates the current JWT. The token is added to a blocklist and auto-purged when it expires.
+Invalidates the current session. The session is deleted from the server, immediately revoking the token's access.
 
 - **Method:** `POST /api/auth/logout`
 - **Headers:** `Authorization: Bearer <JWT>`
@@ -164,7 +164,9 @@ curl -X POST http://localhost:3000/api/ingest \
   -d '{
     "level": "error",
     "message": "Payment gateway timeout",
+    "stackTrace": "Error: timeout at gateway... (optional)",
     "environment": "production",
+    "timestamp": "2024-03-29T10:00:00Z",
     "metadata": { "userId": "user_881" }
   }'
 ```
@@ -202,8 +204,10 @@ curl -X GET "http://localhost:3000/api/projects/65f9876543210/logs?page=1&limit=
       "projectId": "65f9876543210",
       "level": "error",
       "message": "Payment gateway timeout",
+      "stackTrace": "Error: timeout at gateway...",
       "environment": "production",
-      "timestamp": "2024-03-29T10:05:00.000Z"
+      "timestamp": "2024-03-29T10:05:00.000Z",
+      "metadata": { "userId": "user_881" }
     }
   ],
   "meta": {
